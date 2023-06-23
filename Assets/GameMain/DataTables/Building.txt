@@ -1,0 +1,20 @@
+#	Building配置文件					
+#	ID		AssetName	Eletricity	Dorm	Garden
+#	int	string	string	int	int	int
+#	建筑名称	策划备注	资源名称	电力供应	宿舍供应	种植供应
+	1	电梯	Elevator	0	0	0
+	2	发电站	Electricity	2	0	0
+	3	种植园	Garden	0	0	2
+	4	宿舍	Dorm	0	2	0
+	5	工作站	Workbench	0	0	0
+	6	训练房2	Training	0	0	0
+	7	电梯2	Elevator	0	0	0
+	8	发电站2	Electricity	4	0	0
+	9	种植园2	Garden	0	0	4
+	10	宿舍2	Dorm	0	4	0
+	11	工作站2	Workbench	0	0	0
+	12	训练房2	Training	0	0	0
+	13	发电站3	Electricity	6	0	0
+	14	种植园3	Garden	0	0	6
+	15	工作站3	Workbench	0	0	0
+	16	训练房3	Training	0	0	0

@@ -6,6 +6,8 @@
 //------------------------------------------------------------
 
 using UnityEngine;
+using UnityEngine.Diagnostics;
+using UnityGameFramework.Runtime;
 
 namespace GameMain
 {
@@ -14,9 +16,15 @@ namespace GameMain
     /// </summary>
     public partial class GameEntry : MonoBehaviour
     {
+        public static UtilsComponent Utils
+        {
+            get;
+            private set;
+        }
+
         private static void InitCustomComponents()
         {
-
+            Utils = UnityGameFramework.Runtime.GameEntry.GetComponent<UtilsComponent>();
         }
     }
 }

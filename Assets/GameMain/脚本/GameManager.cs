@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public int partNum=0;//零件数量
+    private int m_partNum=0;//零件数量
     public int coreNum=0;//能源核心
     public int foodNum=0;//食物资源
     public int power = 0;
@@ -19,14 +20,22 @@ public class GameManager : MonoBehaviour
     {
         
     }
-    public void ChangePartNum(int changeNum)
+    public int ChangePart
     {
-        partNum += changeNum;
-        if(partNum <=0)
+        get
         {
-            partNum = 0;
+            return m_partNum;
+        }
+        set
+        {
+            m_partNum += value;
+            if (m_partNum <= 0)
+            {
+                m_partNum = 0;
+            }
         }
     }
+
     public void ChangeCoreNum(int changeNum)
     {
         coreNum += changeNum;

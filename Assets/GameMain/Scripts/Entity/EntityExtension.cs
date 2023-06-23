@@ -16,6 +16,33 @@ namespace GameMain
         // 负值用于本地生成的临时实体（如特效、FakeObject等）
         private static int s_SerialId = 0;
 
+        public static void ShowBuilding(this EntityComponent entityComponent, BuildingData data)
+        {
+            entityComponent.ShowEntity(typeof(Building), "Building", 90, data);
+        }
+        public static void ShowElectricity(this EntityComponent entityComponent, CompenentData data)
+        {
+            entityComponent.ShowEntity(typeof(ElectricityBuilding), "Building", 90, data);
+        }
+
+        private static void ShowEntity(this EntityComponent entityComponent, Type logicType, string entityGroup, int priority, EntityData data)
+        {
+            if (data == null)
+            {
+                Log.Warning("Data is invalid.");
+                return;
+            }
+
+            IDataTable<DREntity> dtEntity = GameEntry.DataTable.GetDataTable<DREntity>();
+            DREntity drEntity = dtEntity.GetDataRow(data.TypeId);
+            if (drEntity == null)
+            {
+                Log.Warning("Can not load entity id '{0}' from data table.", data.TypeId.ToString());
+                return;
+            }
+
+            entityComponent.ShowEntity(data.Id, logicType, AssetUtility.GetEntityAsset(drEntity.AssetName), entityGroup, priority, data);
+        }
 
         public static int GenerateSerialId(this EntityComponent entityComponent)
         {

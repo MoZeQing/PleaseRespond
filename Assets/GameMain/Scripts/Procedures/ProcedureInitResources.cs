@@ -18,7 +18,8 @@ namespace GameMain
         {
             "Entity",
             "UIForms",
-            "Scene"
+            "Scene",
+            "Building"
         };
 
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();

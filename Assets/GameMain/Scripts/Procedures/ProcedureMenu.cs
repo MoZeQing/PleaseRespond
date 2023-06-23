@@ -13,11 +13,12 @@ namespace GameMain
     public class ProcedureMenu : ProcedureBase
     {
         private bool m_StartGame = false;
-        //private StartForm m_StartForm = null;
+        private MainMenu m_MenuForm = null;
 
         public void StartGame()
         {
             m_StartGame = true;
+            Debug.Log("´¥·¢");
         }
 
         public void ExitGame()
@@ -42,6 +43,10 @@ namespace GameMain
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
             base.OnLeave(procedureOwner, isShutdown);
+
+            GameEntry.UI.CloseUIForm(m_MenuForm.UIForm);
+
+            GameEntry.Event.Unsubscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccess);
         }
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
@@ -59,7 +64,7 @@ namespace GameMain
                 return;
             }
 
-            //m_StartForm = (StartForm)ne.UIForm.Logic;
+            m_MenuForm = (MainMenu)ne.UIForm.Logic;
         }
     }
 }
