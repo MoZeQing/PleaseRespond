@@ -6,9 +6,9 @@ using UnityEngine;
 
 namespace GameMain
 {
-    public class BuildingEventArgs : GameEventArgs
+    public class DowngradeBuildingEventArgs : GameEventArgs
     {
-        public static readonly int EventId = typeof(BuildingEventArgs).GetHashCode();
+        public static readonly int EventId = typeof(DowngradeBuildingEventArgs).GetHashCode();
 
         public override int Id
         {
@@ -16,12 +16,6 @@ namespace GameMain
             {
                 return EventId;
             }
-        }
-
-        public bool Upgrade
-        {
-            get;
-            set;
         }
 
         public Vector2 BuildingPos
@@ -36,12 +30,11 @@ namespace GameMain
             set;
         }
 
-        public static BuildingEventArgs Create(Vector2 pos,BuildingData building,bool upgrade)
+        public static DowngradeBuildingEventArgs Create(Vector2 pos, BuildingData building)
         {
-            BuildingEventArgs args = ReferencePool.Acquire<BuildingEventArgs>();
+            DowngradeBuildingEventArgs args = ReferencePool.Acquire<DowngradeBuildingEventArgs>();
             args.BuildingPos = pos;
             args.BuildingData = building;
-            args.Upgrade = upgrade;
             return args;
         }
 
@@ -51,3 +44,4 @@ namespace GameMain
         }
     }
 }
+

@@ -11,14 +11,14 @@ using GameFramework.DataTable;
 
 namespace GameMain
 {
-    public class ElectricityBuilding : BaseBuilding,IPointerDownHandler
+    public class NoneBuilding : BaseBuilding, IPointerDownHandler
     {
         private BuildingData m_BuildingData;
         private CompenentData m_CompenentData;
         private SpriteRenderer m_SpriteRenderer;
         private BoxCollider2D m_Collider2D;
 
-        private int m_Electricity=0;
+        private int m_Electricity = 0;
 
         protected override void OnInit(object userData)
         {
@@ -44,6 +44,7 @@ namespace GameMain
 
         public void OnPointerDown(PointerEventData eventData)
         {
+            //弹出升级的按钮
 
         }
 
@@ -63,17 +64,7 @@ namespace GameMain
         public override void UpgradeBuilding()
         {
             base.UpgradeBuilding();
-            GameEntry.Event.FireNow(this, BuildingEventArgs.Create(m_BuildingData.Pos, m_BuildingData, false));
-            switch (m_BuildingData.BuilingTag)
-            { 
-                case BuilingTag.Electricity1:
-                    m_BuildingData.BuilingTag = BuilingTag.Electricity2;
-                    break;
-                case BuilingTag.Electricity2:
-                    m_BuildingData.BuilingTag = BuilingTag.Electricity3;
-                    break;
-                case BuilingTag.Electricity3:break;
-            }
+
             UpdateBuilding();
         }
 
@@ -81,21 +72,7 @@ namespace GameMain
         public override void DowngradeBuilding()
         {
             base.DowngradeBuilding();
-            GameEntry.Event.FireNow(this, BuildingEventArgs.Create(m_BuildingData.Pos, m_BuildingData, false));
-            switch (m_BuildingData.BuilingTag)
-            {
-                case BuilingTag.None: break;
-                case BuilingTag.Electricity1: 
-                    //拆掉
-                    break;
-                case BuilingTag.Electricity2:
-                    m_BuildingData.BuilingTag = BuilingTag.Electricity1;
-                    break;
-                case BuilingTag.Electricity3:
-                    m_BuildingData.BuilingTag = BuilingTag.Electricity2;
-                    break;
-            }
-            UpdateBuilding();
+            //UI提醒无法降级或者直接屏蔽降级的按钮
         }
     }
 }

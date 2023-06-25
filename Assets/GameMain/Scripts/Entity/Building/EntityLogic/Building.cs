@@ -25,6 +25,9 @@ namespace GameMain
             //工厂模式
             switch (Data.BuilingTag)
             {
+                case BuilingTag.None:
+
+                    break;
                 case BuilingTag.Training1:
                 case BuilingTag.Training2:
                 case BuilingTag.Training3:

@@ -33,23 +33,30 @@ namespace GameMain
 
         private void BuildingEvent(object sender, GameEventArgs e)
         {
-            Debug.Log("asd1");
             BuildingEventArgs building =(BuildingEventArgs)e;
-            if (m_Maps.ContainsKey(building.BuildingPos))
+            if (building.Upgrade)
             {
-                m_Electricity -= m_Maps[building.BuildingPos].Eletricity;
-                m_Dorm -= m_Maps[building.BuildingPos].Dorm;
-                m_Garden -= m_Maps[building.BuildingPos].Garden;
-            }
-            m_Electricity += building.BuildingData.Eletricity;
-            m_Dorm += building.BuildingData.Dorm;
-            m_Garden += building.BuildingData.Garden;
+                if (!m_Maps.ContainsKey(building.BuildingPos))
+                    m_Maps.Add(building.BuildingPos, building.BuildingData);
+                else
+                    m_Maps[building.BuildingPos] = building.BuildingData;
 
-            m_Maps[building.BuildingPos] = building.BuildingData;
+                m_Electricity += building.BuildingData.Eletricity;
+                m_Dorm += building.BuildingData.Dorm;
+                m_Garden += building.BuildingData.Garden;
+            }
+            else
+            {
+                m_Electricity -= building.BuildingData.Eletricity;
+                m_Dorm -= building.BuildingData.Dorm;
+                m_Garden -= building.BuildingData.Garden;
+            }
 
             m_ElectricityText.text = m_Electricity.ToString();
             m_DormText.text = m_Dorm.ToString();
             m_GardenText.text = m_Garden.ToString();
         }
     }
+
+
 }
