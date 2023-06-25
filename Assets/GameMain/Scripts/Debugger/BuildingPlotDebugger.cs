@@ -9,7 +9,7 @@ namespace GameMain
         void Start()
         {
             GameEntry.Utils.buildingPos.Add(new Vector2(0, 0), this.transform.GetChild(0).transform.position);
-            GameEntry.Utils.buildingPos.Add(new Vector2(0, 1),this.transform.GetChild(1).transform.position);
+            GameEntry.Utils.buildingPos.Add(new Vector2(0, 1), this.transform.GetChild(1).transform.position);
             GameEntry.Utils.buildingPos.Add(new Vector2(0, 2), this.transform.GetChild(2).transform.position);
             GameEntry.Utils.buildingPos.Add(new Vector2(0, 3), this.transform.GetChild(3).transform.position);
             GameEntry.Utils.buildingPos.Add(new Vector2(1, 0), this.transform.GetChild(4).transform.position);
