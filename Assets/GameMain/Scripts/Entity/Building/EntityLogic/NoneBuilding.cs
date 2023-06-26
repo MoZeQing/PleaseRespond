@@ -31,7 +31,7 @@ namespace GameMain
             m_SpriteRenderer = this.GetComponent<SpriteRenderer>();
             m_Collider2D = this.GetComponent<BoxCollider2D>();
 
-            m_SpriteRenderer.sprite = GameEntry.Utils.sprites[(int)m_BuildingData.BuilingTag];
+            m_SpriteRenderer.sprite = GameEntry.Utils.sprites[(int)m_BuildingData.BuildingTag];
             m_Collider2D.size = m_SpriteRenderer.size;
             this.transform.localScale = Vector3.one * 0.16f;
             UpdateBuilding();
@@ -45,7 +45,8 @@ namespace GameMain
         public void OnPointerDown(PointerEventData eventData)
         {
             //弹出升级的按钮
-
+            GameEntry.UI.OpenUIForm(UIFormId.BaseForm, m_BuildingData);
+            Debug.Log(1);
         }
 
 
@@ -53,7 +54,7 @@ namespace GameMain
         {
             base.UpdateBuilding();
             IDataTable<DRBuilding> dtBuilding = GameEntry.DataTable.GetDataTable<DRBuilding>();
-            DRBuilding drBuilding = dtBuilding.GetDataRow((int)m_BuildingData.BuilingTag);
+            DRBuilding drBuilding = dtBuilding.GetDataRow((int)m_BuildingData.BuildingTag);
             m_BuildingData.Eletricity = drBuilding.Eletricity;
             m_BuildingData.Dorm = drBuilding.Dorm;
             m_BuildingData.Garden = drBuilding.Garden;

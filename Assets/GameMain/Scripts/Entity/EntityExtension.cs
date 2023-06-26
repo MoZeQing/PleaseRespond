@@ -27,7 +27,7 @@ namespace GameMain
 
         public static void ShowNone(this EntityComponent entityComponent, CompenentData data)
         {
-            entityComponent.ShowEntity(typeof(ElectricityBuilding), "Building", 90, data);
+            entityComponent.ShowEntity(typeof(ConstructionBuilding), "Building", 90, data);
         }
 
         private static void ShowEntity(this EntityComponent entityComponent, Type logicType, string entityGroup, int priority, EntityData data)

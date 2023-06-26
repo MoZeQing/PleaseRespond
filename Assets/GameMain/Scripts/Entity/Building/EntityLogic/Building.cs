@@ -19,36 +19,46 @@ namespace GameMain
             InitCompenent();
         }
 
+        public void UpgradeBuilding()
+        { 
+            this.transform.GetChild(0).GetComponent<BaseBuilding>().UpdateBuilding();
+        }
+
+        public void DowngradeBuilding()
+        { 
+            this.transform.GetChild(0).GetComponent<BaseBuilding>().DowngradeBuilding();
+        }
+
         private void InitCompenent()
         {
             CompenentData compenentData = new CompenentData(GameEntry.Entity.GenerateSerialId(), 10001, Id, Data);
             //工厂模式
-            switch (Data.BuilingTag)
+            switch (Data.BuildingTag)
             {
-                case BuilingTag.None:
-
+                case BuildingTag.None:
+                    GameEntry.Entity.ShowNone(compenentData);
                     break;
-                case BuilingTag.Training1:
-                case BuilingTag.Training2:
-                case BuilingTag.Training3:
+                case BuildingTag.Training1:
+                case BuildingTag.Training2:
+                case BuildingTag.Training3:
                     break;
-                case BuilingTag.Workbench1:
-                case BuilingTag.Workbench2:
-                case BuilingTag.Workbench3:
+                case BuildingTag.Workbench1:
+                case BuildingTag.Workbench2:
+                case BuildingTag.Workbench3:
                     break;
-                case BuilingTag.Elevator1:
-                case BuilingTag.Elevator2:
+                case BuildingTag.Elevator1:
+                case BuildingTag.Elevator2:
                     break;
-                case BuilingTag.Garden1:
-                case BuilingTag.Garden2:
-                case BuilingTag.Garden3:
+                case BuildingTag.Garden1:
+                case BuildingTag.Garden2:
+                case BuildingTag.Garden3:
                     break;
-                case BuilingTag.Dorm1:
-                case BuilingTag.Dorm2:
+                case BuildingTag.Dorm1:
+                case BuildingTag.Dorm2:
                     break;
-                case BuilingTag.Electricity1:
-                case BuilingTag.Electricity2:
-                case BuilingTag.Electricity3:
+                case BuildingTag.Electricity1:
+                case BuildingTag.Electricity2:
+                case BuildingTag.Electricity3:
                     GameEntry.Entity.ShowElectricity(compenentData);
                     break;
             }

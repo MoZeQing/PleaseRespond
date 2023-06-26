@@ -21,10 +21,13 @@ namespace GameMain
             GameEntry.Utils.buildingPos.Add(new Vector2(2, 2), this.transform.GetChild(10).transform.position);
             GameEntry.Utils.buildingPos.Add(new Vector2(2, 3), this.transform.GetChild(11).transform.position);
 
-            GameEntry.Entity.ShowBuilding(new BuildingData(GameEntry.Entity.GenerateSerialId(), 10000, BuilingTag.Electricity1, new Vector2(0, 0))
+            foreach (KeyValuePair<Vector2, Vector3> pos in GameEntry.Utils.buildingPos)
             {
-                Position = GameEntry.Utils.buildingPos[new Vector2(0, 0)]
-            });
+                GameEntry.Entity.ShowBuilding(new BuildingData(GameEntry.Entity.GenerateSerialId(), 10000, BuildingTag.None, new Vector2(0, 0))
+                {
+                    Position = pos.Value
+                });
+            }
         }
     }
 }

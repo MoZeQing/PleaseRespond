@@ -11,7 +11,7 @@ namespace GameMain
         /// <summary>
         /// 建筑的种类
         /// </summary>
-        public BuilingTag BuilingTag
+        public BuildingTag BuildingTag
         {
             get;
             set;
@@ -44,15 +44,33 @@ namespace GameMain
             set;
         }
 
-        public BuildingData(int entityId,int typeId,BuilingTag builing,Vector2 pos)
+        public string Title
+        {
+            get;
+            set;
+        }
+
+        public string Produre
+        {
+            get;
+            set;
+        }
+
+        public string Description
+        {
+            get;
+            set;
+        }
+
+        public BuildingData(int entityId,int typeId,BuildingTag builing,Vector2 pos)
             :base(entityId,typeId)
         { 
-            this.BuilingTag= builing;
+            this.BuildingTag= builing;
             Pos= pos;
         }
     }
 
-    public enum BuilingTag
+    public enum BuildingTag
     {
         None,
         Elevator1,

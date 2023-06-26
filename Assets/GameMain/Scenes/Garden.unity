@@ -2427,7 +2427,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 2.579193}
+  m_AnchoredPosition: {x: 0, y: 2.5792236}
   m_SizeDelta: {x: -367.98, y: -76.5376}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &348268868
@@ -4844,7 +4844,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 5.6105, y: -0}
+  m_AnchoredPosition: {x: 5.6104736, y: 0}
   m_SizeDelta: {x: 56.1058, y: 61.7162}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &756689779
@@ -9525,6 +9525,10 @@ MonoBehaviour:
   FaceImage: {fileID: 1794480980}
   BG: {fileID: 0}
   F01: {fileID: 0}
+  C01: {fileID: 0}
+  C02: {fileID: 0}
+  C03: {fileID: 0}
+  C04: {fileID: 0}
   TextFile: {fileID: 0}
   Index: 0
   TextSpeed: 0.2
@@ -9564,6 +9568,8 @@ MonoBehaviour:
   BG2: {fileID: 0}
   BG3: {fileID: 0}
   BG4: {fileID: 0}
+  life: 0
+  infection: 0
 --- !u!114 &1506281639
 MonoBehaviour:
   m_ObjectHideFlags: 0

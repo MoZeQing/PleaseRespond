@@ -11,14 +11,14 @@ using GameFramework.DataTable;
 
 namespace GameMain
 {
-    public class ElectricityBuilding : BaseBuilding,IPointerDownHandler
+    public class ConstructionBuilding : BaseBuilding, IPointerDownHandler
     {
         private BuildingData m_BuildingData;
         private CompenentData m_CompenentData;
         private SpriteRenderer m_SpriteRenderer;
         private BoxCollider2D m_Collider2D;
 
-        private int m_Electricity=0;
+        private int m_Electricity = 0;
 
         protected override void OnInit(object userData)
         {
@@ -44,7 +44,7 @@ namespace GameMain
 
         public void OnPointerDown(PointerEventData eventData)
         {
-
+            GameEntry.UI.OpenUIForm(UIFormId.BaseForm, m_BuildingData);
         }
 
 
@@ -53,9 +53,9 @@ namespace GameMain
             base.UpdateBuilding();
             IDataTable<DRBuilding> dtBuilding = GameEntry.DataTable.GetDataTable<DRBuilding>();
             DRBuilding drBuilding = dtBuilding.GetDataRow((int)m_BuildingData.BuildingTag);
-            m_BuildingData.Title= drBuilding.Title;
+            m_BuildingData.Title = drBuilding.Title;
             m_BuildingData.Description = drBuilding.Description;
-            m_BuildingData.Produre= drBuilding.Produre;
+            m_BuildingData.Produre = drBuilding.Produre;
             m_BuildingData.Eletricity = drBuilding.Eletricity;
             m_BuildingData.Dorm = drBuilding.Dorm;
             m_BuildingData.Garden = drBuilding.Garden;
@@ -66,39 +66,12 @@ namespace GameMain
         public override void UpgradeBuilding()
         {
             base.UpgradeBuilding();
-            GameEntry.Event.FireNow(this, BuildingEventArgs.Create(m_BuildingData.Pos, m_BuildingData, false));
-            switch (m_BuildingData.BuildingTag)
-            { 
-                case BuildingTag.Electricity1:
-                    m_BuildingData.BuildingTag = BuildingTag.Electricity2;
-                    break;
-                case BuildingTag.Electricity2:
-                    m_BuildingData.BuildingTag = BuildingTag.Electricity3;
-                    break;
-                case BuildingTag.Electricity3:break;
-            }
-            UpdateBuilding();
         }
 
         //½µ¼¶×é¼þ
         public override void DowngradeBuilding()
         {
             base.DowngradeBuilding();
-            GameEntry.Event.FireNow(this, BuildingEventArgs.Create(m_BuildingData.Pos, m_BuildingData, false));
-            switch (m_BuildingData.BuildingTag)
-            {
-                case BuildingTag.None: break;
-                case BuildingTag.Electricity1: 
-                    //²ðµô
-                    break;
-                case BuildingTag.Electricity2:
-                    m_BuildingData.BuildingTag = BuildingTag.Electricity1;
-                    break;
-                case BuildingTag.Electricity3:
-                    m_BuildingData.BuildingTag = BuildingTag.Electricity2;
-                    break;
-            }
-            UpdateBuilding();
         }
     }
 }

@@ -5,7 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 // 此文件由工具自动生成，请勿直接修改。
-// 生成时间：2023-06-23 01:12:54.147
+// 生成时间：2023-06-26 18:30:06.436
 //------------------------------------------------------------
 
 using GameFramework;
@@ -26,7 +26,7 @@ namespace GameMain
         private int m_Id = 0;
 
         /// <summary>
-        /// 获取建筑名称。
+        /// 获取建筑ID。
         /// </summary>
         public override int Id
         {
@@ -72,6 +72,33 @@ namespace GameMain
             private set;
         }
 
+        /// <summary>
+        /// 获取标题描述。
+        /// </summary>
+        public string Title
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取供应描述。
+        /// </summary>
+        public string Produre
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 获取详细描述。
+        /// </summary>
+        public string Description
+        {
+            get;
+            private set;
+        }
+
         public override bool ParseDataRow(string dataRowString, object userData)
         {
             string[] columnStrings = dataRowString.Split(DataTableExtension.DataSplitSeparators);
@@ -88,6 +115,9 @@ namespace GameMain
             Eletricity = int.Parse(columnStrings[index++]);
             Dorm = int.Parse(columnStrings[index++]);
             Garden = int.Parse(columnStrings[index++]);
+            Title = columnStrings[index++];
+            Produre = columnStrings[index++];
+            Description = columnStrings[index++];
 
             GeneratePropertyArray();
             return true;
@@ -104,6 +134,9 @@ namespace GameMain
                     Eletricity = binaryReader.Read7BitEncodedInt32();
                     Dorm = binaryReader.Read7BitEncodedInt32();
                     Garden = binaryReader.Read7BitEncodedInt32();
+                    Title = binaryReader.ReadString();
+                    Produre = binaryReader.ReadString();
+                    Description = binaryReader.ReadString();
                 }
             }
 
