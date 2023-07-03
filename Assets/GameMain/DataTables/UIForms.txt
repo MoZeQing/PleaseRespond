@@ -1,13 +1,16 @@
-#	UIFormé…ç½®æ–‡ä»¶					
+#	UIFormÅäÖÃÎÄ¼ş					
 #	ID		AssetName	UIGroupName	AllowMultiInstance	PauseCoveredUIForm
 #	int	string	string	string	bool	bool
-#	ç•Œé¢ç¼–å·	ç­–åˆ’å¤‡æ³¨	ç•Œé¢åç§°	ç•Œé¢ç»„åç§°	æ˜¯å¦å…è®¸å¤šä¸ªç•Œé¢å®ä¾‹	æ˜¯å¦æš‚åœè¢«å…¶è¦†ç›–çš„ç•Œé¢
-	1	å¼€å§‹ç•Œé¢	MenuForm	Default	FALSE	FALSE
-	2	æ¸¸æˆä¸»ç•Œé¢	MainForm	Default	FALSE	FALSE
-	3	æ¸¸æˆç•Œé¢	GameForm	Default	FALSE	FALSE
-	4	è®¾ç½®	SettingForm	Default	FALSE	FALSE
-	5	åŸºåœ°ç•Œé¢	BaseForm	Default	FALSE	FALSE
-	6	å‡çº§ç•Œé¢	UpgradeForm	Default	FALSE	FALSE
-	7	é™çº§ç•Œé¢	DowngradeForm	Default	FALSE	FALSE
-	8	æ´¾é£ç•Œé¢	DispatchForm	Default	FALSE	FALSE
-	9	å»ºç­‘ç•Œé¢	BuildingForm	Default	FALSE	FALSE
+#	½çÃæ±àºÅ	²ß»®±¸×¢	½çÃæÃû³Æ	½çÃæ×éÃû³Æ	ÊÇ·ñÔÊĞí¶à¸ö½çÃæÊµÀı	ÊÇ·ñÔİÍ£±»Æä¸²¸ÇµÄ½çÃæ
+	1	¿ªÊ¼½çÃæ	MenuForm	Default	FALSE	FALSE
+	2	ÓÎÏ·Ö÷½çÃæ	MainForm	Default	FALSE	FALSE
+	3	ÓÎÏ·½çÃæ	GameForm	Default	FALSE	FALSE
+	4	ÉèÖÃ	SettingForm	Default	FALSE	FALSE
+	5	»ùµØ½çÃæ	BaseForm	Default	FALSE	TRUE
+	6	Éı¼¶½çÃæ	UpgradeForm	Default	FALSE	TRUE
+	7	½µ¼¶½çÃæ	DowngradeForm	Default	FALSE	TRUE
+	8	ÅÉÇ²½çÃæ	DispatchForm	Default	FALSE	TRUE
+	9	½¨Öş½çÃæ	BuildingForm	Default	FALSE	TRUE
+	10	Ã°ÏÕ½çÃæ	AdventureForm	Default	FALSE	TRUE
+	11	µØÍ¼½çÃæ	MapForm	Default	FALSE	TRUE
+	12	×¼±¸½çÃæ	ReadyForm	Default	FALSE	TRUE

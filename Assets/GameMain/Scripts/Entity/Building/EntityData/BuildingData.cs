@@ -72,14 +72,14 @@ namespace GameMain
 
     public enum BuildingTag
     {
-        None,
-        Elevator1,
+        Unavailable,
+        Empty,
+        Elevator,
         Electricity1,
         Garden1,
         Dorm1,
         Workbench1,
         Training1,
-        Elevator2,
         Electricity2,
         Garden2,
         Dorm2,

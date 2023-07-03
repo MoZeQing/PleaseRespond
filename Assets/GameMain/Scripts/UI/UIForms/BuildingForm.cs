@@ -17,9 +17,9 @@ namespace GameMain
         [SerializeField] private Transform m_Content = null;
 
         private BuildingData m_BuildingData = null;
+        private BuildingTag m_BuildingTag;
         private BuildingTag[] m_BuildingTags = new BuildingTag[]
         {
-            BuildingTag.None,
             BuildingTag.Electricity1,
             BuildingTag.Training1,
             BuildingTag.Dorm1,
@@ -31,27 +31,33 @@ namespace GameMain
         {
             base.OnOpen(userData);
 
+            m_BuildingData =(BuildingData)userData;
+            for (int i = 0; i < m_Content.transform.childCount; i++)
+            {
+                Destroy(m_Content.GetChild(i).gameObject);
+            }
             foreach (BuildingTag buildingTag in m_BuildingTags)
             {
                 GameObject go = new GameObject();
                 go.name = buildingTag.ToString();
                 go.transform.parent = m_Content.transform;
                 go.AddComponent<Image>();
-                //go.GetComponent<SpriteRenderer>().sprite = GameEntry.Utils.sprites[(int)buildingTag];
+                go.GetComponent<Image>().sprite = GameEntry.Utils.sprites[(int)buildingTag];
+                go.GetComponent<RectTransform>().sizeDelta = new Vector2(192 * 4, 108 * 4);
+                go.GetComponent<RectTransform>().localRotation = Quaternion.identity;
                 go.AddComponent<BuildingItem>();
                 go.AddComponent<Button>();
                 go.GetComponent<BuildingItem>().OnInit(this, buildingTag);
             }
-
+            Debug.Log(this.UIForm.PauseCoveredUIForm);
             m_BuildingBtn.onClick.AddListener(Building_OnClick);
         }
 
         public void SetBuilding(object sender)
-        {
-            BuildingTag buildingTag = (BuildingTag)sender;
-
+        {             
+            m_BuildingTag = (BuildingTag)sender;
             IDataTable<DRBuilding> dtBuilding = GameEntry.DataTable.GetDataTable<DRBuilding>();
-            DRBuilding drBuilding = dtBuilding.GetDataRow((int)buildingTag);
+            DRBuilding drBuilding = dtBuilding.GetDataRow((int)m_BuildingTag);
 
             m_TitleText.text = drBuilding.Title.ToString();
             m_ProdureText.text = drBuilding.Produre.ToString();
@@ -59,8 +65,21 @@ namespace GameMain
         }
 
         private void Building_OnClick()
-        { 
-            
+        {
+            if (m_BuildingData.BuildingTag != BuildingTag.Empty)
+                return;
+            if (m_BuildingData.Pos == null)
+                return;
+            GameEntry.Entity.GetEntity(m_BuildingData.Id).GetComponent<Building>().ChangeBuilding(m_BuildingTag);
+            GameEntry.UI.CloseUIForm(this.UIForm);
+            GameEntry.UI.CloseUIForm(UIFormId.BaseForm);
+        }
+
+        protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
+        {
+            base.OnUpdate(elapseSeconds, realElapseSeconds);
+            if (Input.GetMouseButtonDown(1))
+                GameEntry.UI.CloseUIForm(this.UIForm);
         }
 
         protected override void OnClose(bool isShutdown, object userData)

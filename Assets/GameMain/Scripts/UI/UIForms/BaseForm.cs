@@ -28,7 +28,7 @@ namespace GameMain
             m_ProdureText.text = m_BuildingData.Produre.ToString();
             m_DescriptionText.text = m_BuildingData.Description.ToString();
 
-            if (m_BuildingData.BuildingTag == BuildingTag.None)
+            if (m_BuildingData.BuildingTag == BuildingTag.Empty)
                 m_UpgradeBtn.onClick.AddListener(Building_OnClick);
             else
                 m_UpgradeBtn.onClick.AddListener(Upgrade_OnClick);
@@ -54,6 +54,13 @@ namespace GameMain
         private void Dispatch_OnClick()
         {
             GameEntry.UI.OpenUIForm(UIFormId.DispatchForm, m_BuildingData);
+        }
+
+        protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
+        {
+            base.OnUpdate(elapseSeconds, realElapseSeconds);
+            if (Input.GetMouseButtonDown(1))
+                GameEntry.UI.CloseUIForm(this.UIForm);
         }
 
         protected override void OnClose(bool isShutdown, object userData)

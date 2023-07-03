@@ -26,6 +26,7 @@ namespace GameMain
             m_CompenentData = (CompenentData)userData;
             m_BuildingData = m_CompenentData.BuildingData;
             GameEntry.Entity.AttachEntity(this.Entity.Id, m_BuildingData.Id);//回调附加组件
+            this.transform.parent.GetComponent<Building>().CompenentData = m_CompenentData;
             this.transform.localPosition = Vector3.zero;
 
             m_SpriteRenderer = this.GetComponent<SpriteRenderer>();
@@ -33,7 +34,8 @@ namespace GameMain
 
             m_SpriteRenderer.sprite = GameEntry.Utils.sprites[(int)m_BuildingData.BuildingTag];
             m_Collider2D.size = m_SpriteRenderer.size;
-            this.transform.localScale = Vector3.one * 0.16f;
+            this.transform.localPosition = Vector3.zero;
+            this.transform.localScale = Vector3.one * 0.15f;
             UpdateBuilding();
         }
 

@@ -9,15 +9,8 @@ using GameFramework.Fsm;
 
 namespace GameMain
 {
-    public class ProcedureMain : ProcedureBase
+    public class ProcedureAdventure : ProcedureBase
     {
-        private bool m_StartAdventure = false;
-
-        public void StartAdventure()
-        { 
-            m_StartAdventure=true;
-        }
-
         protected override void OnEnter(IFsm<IProcedureManager> procedureOwner)
         {
             base.OnEnter(procedureOwner);
@@ -25,45 +18,30 @@ namespace GameMain
             // 还原游戏速度
             GameEntry.Base.ResetNormalGameSpeed();
             IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
-            DRScene drScene = dtScene.GetDataRow(2);
+            DRScene drScene = dtScene.GetDataRow(3);
             //加载主界面
             Debug.Log(drScene != null);
             if (drScene == null)
             {
-                Log.Warning("Can not load scene '{0}' from data table.", 2.ToString());
+                Log.Warning("Can not load scene '{0}' from data table.",3.ToString());
                 return;
             }
             Debug.Log("Start Load Scene");
             GameEntry.Scene.LoadScene(AssetUtility.GetSceneAsset(drScene.AssetName), /*Constant.AssetPriority.SceneAsset*/0, this);
-            GameEntry.UI.OpenUIForm(UIFormId.GameForm, this);
+            Debug.Log(47);
+            GameEntry.UI.OpenUIForm(UIFormId.AdventureForm, this);
         }
 
         protected override void OnLeave(IFsm<IProcedureManager> procedureOwner, bool isShutdown)
         {
             base.OnLeave(procedureOwner, isShutdown);
-            IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
-            DRScene drScene = dtScene.GetDataRow(2);
-            //加载主界面
-            Debug.Log(drScene != null);
-            if (drScene == null)
-            {
-                Log.Warning("Can not load scene '{0}' from data table.", 2.ToString());
-                return;
-            }
-            Debug.Log("Start Load Scene");
-            GameEntry.Scene.UnloadScene(AssetUtility.GetSceneAsset(drScene.AssetName), this);
-
             GameEntry.UI.CloseAllLoadedUIForms();
-            GameEntry.Entity.HideAllLoadedEntities();
+            GameEntry.UI.CloseAllLoadingUIForms();
         }
 
         protected override void OnUpdate(IFsm<IProcedureManager> procedureOwner, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
-            if (m_StartAdventure)
-            {
-                ChangeState<ProcedureAdventure>(procedureOwner);
-            }
         }
     }
 

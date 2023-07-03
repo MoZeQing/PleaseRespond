@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 650220558051887028}
   - component: {fileID: 414626477781051928}
   m_Layer: 5
-  m_Name: BaseForm1
+  m_Name: BaseForm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

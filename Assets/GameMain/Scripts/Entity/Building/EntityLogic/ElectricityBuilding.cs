@@ -26,14 +26,15 @@ namespace GameMain
             m_CompenentData = (CompenentData)userData;
             m_BuildingData = m_CompenentData.BuildingData;
             GameEntry.Entity.AttachEntity(this.Entity.Id, m_BuildingData.Id);//回调附加组件
-            this.transform.localPosition = Vector3.zero;
+            this.transform.parent.GetComponent<Building>().CompenentData = m_CompenentData;
 
             m_SpriteRenderer = this.GetComponent<SpriteRenderer>();
             m_Collider2D = this.GetComponent<BoxCollider2D>();
 
             m_SpriteRenderer.sprite = GameEntry.Utils.sprites[(int)m_BuildingData.BuildingTag];
             m_Collider2D.size = m_SpriteRenderer.size;
-            this.transform.localScale = Vector3.one * 0.16f;
+            this.transform.localPosition = Vector3.zero;
+            this.transform.localScale = Vector3.one * 0.15f;
             UpdateBuilding();
         }
 
@@ -51,6 +52,7 @@ namespace GameMain
         public override void UpdateBuilding()
         {
             base.UpdateBuilding();
+            //DataTable
             IDataTable<DRBuilding> dtBuilding = GameEntry.DataTable.GetDataTable<DRBuilding>();
             DRBuilding drBuilding = dtBuilding.GetDataRow((int)m_BuildingData.BuildingTag);
             m_BuildingData.Title= drBuilding.Title;
@@ -87,7 +89,7 @@ namespace GameMain
             GameEntry.Event.FireNow(this, BuildingEventArgs.Create(m_BuildingData.Pos, m_BuildingData, false));
             switch (m_BuildingData.BuildingTag)
             {
-                case BuildingTag.None: break;
+                case BuildingTag.Empty: break;
                 case BuildingTag.Electricity1: 
                     //拆掉
                     break;

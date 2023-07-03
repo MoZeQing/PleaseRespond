@@ -9,6 +9,11 @@ namespace GameMain
 {
     public static class UIExtension
     {
+        public static void CloseUIForm(this UIComponent uiComponent, UIFormId uiFormId, object userData = null)
+        { 
+            
+        }
+
         public static int? OpenUIForm(this UIComponent uiComponent, UIFormId uiFormId, object userData = null)
         {
             return uiComponent.OpenUIForm((int)uiFormId, userData);

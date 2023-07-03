@@ -1,21 +1,21 @@
-#	BuildingÅäÖÃÎÄ¼ş								
+#	Buildingé…ç½®æ–‡ä»¶								
 #	ID		AssetName	Eletricity	Dorm	Garden	Title	Produre	Description
 #	int	string	string	int	int	int	string	string	string
-#	½¨ÖşID	²ß»®±¸×¢	×ÊÔ´Ãû³Æ	µçÁ¦¹©Ó¦	ËŞÉá¹©Ó¦	ÖÖÖ²¹©Ó¦	±êÌâÃèÊö	¹©Ó¦ÃèÊö	ÏêÏ¸ÃèÊö
-	0	½¨ÉèÖĞ	Construction	0	0	0	½¨ÉèÖĞ		ÕıÔÚ½¨ÉèÖĞµÄ¿ÕµØ
-	1	µçÌİ	Elevator	0	0	0			
-	2	·¢µçÕ¾	Electricity	2	0	0			
-	3	ÖÖÖ²Ô°	Garden	0	0	2			
-	4	ËŞÉá	Dorm	0	2	0			
-	5	¹¤×÷Õ¾	Workbench	0	0	0			
-	6	ÑµÁ··¿2	Training	0	0	0			
-	7	µçÌİ2	Elevator	0	0	0			
-	8	·¢µçÕ¾2	Electricity	4	0	0			
-	9	ÖÖÖ²Ô°2	Garden	0	0	4			
-	10	ËŞÉá2	Dorm	0	4	0			
-	11	¹¤×÷Õ¾2	Workbench	0	0	0			
-	12	ÑµÁ··¿2	Training	0	0	0			
-	13	·¢µçÕ¾3	Electricity	6	0	0			
-	14	ÖÖÖ²Ô°3	Garden	0	0	6			
-	15	¹¤×÷Õ¾3	Workbench	0	0	0			
-	16	ÑµÁ··¿3	Training	0	0	0			
+#	å»ºç­‘ID	ç­–åˆ’å¤‡æ³¨	èµ„æºåç§°	ç”µåŠ›ä¾›åº”	å®¿èˆä¾›åº”	ç§æ¤ä¾›åº”	æ ‡é¢˜æè¿°	ä¾›åº”æè¿°	è¯¦ç»†æè¿°
+	1	ç©º	Construction	0	0	0	å»ºè®¾ä¸­		æ­£åœ¨å»ºè®¾ä¸­çš„ç©ºåœ°
+	2	ç”µæ¢¯	Elevator	0	0	0			
+	3	å‘ç”µç«™	Electricity	2	0	0	å‘ç”µç«™ Lv.1		æä¾›åŸºåœ°å®è´µçš„èƒ½æºèµ„æº
+	4	ç§æ¤å›­	Garden	0	0	2			
+	5	å®¿èˆ	Dorm	0	2	0			
+	6	å·¥ä½œç«™	Workbench	0	0	0			
+	7	è®­ç»ƒæˆ¿2	Training	0	0	0			
+	8	ç”µæ¢¯2	Elevator	0	0	0			
+	9	å‘ç”µç«™2	Electricity	4	0	0			
+	10	ç§æ¤å›­2	Garden	0	0	4			
+	11	å®¿èˆ2	Dorm	0	4	0			
+	12	å·¥ä½œç«™2	Workbench	0	0	0			
+	13	è®­ç»ƒæˆ¿2	Training	0	0	0			
+	14	å‘ç”µç«™3	Electricity	6	0	0			
+	15	ç§æ¤å›­3	Garden	0	0	6			
+	16	å·¥ä½œç«™3	Workbench	0	0	0			
+	17	è®­ç»ƒæˆ¿3	Training	0	0	0			

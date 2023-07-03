@@ -6,26 +6,19 @@ namespace GameMain
 {
     public class BuildingPlotDebugger : MonoBehaviour
     {
+        
         void Start()
         {
-            GameEntry.Utils.buildingPos.Add(new Vector2(0, 0), this.transform.GetChild(0).transform.position);
-            GameEntry.Utils.buildingPos.Add(new Vector2(0, 1), this.transform.GetChild(1).transform.position);
-            GameEntry.Utils.buildingPos.Add(new Vector2(0, 2), this.transform.GetChild(2).transform.position);
-            GameEntry.Utils.buildingPos.Add(new Vector2(0, 3), this.transform.GetChild(3).transform.position);
-            GameEntry.Utils.buildingPos.Add(new Vector2(1, 0), this.transform.GetChild(4).transform.position);
-            GameEntry.Utils.buildingPos.Add(new Vector2(1, 1), this.transform.GetChild(5).transform.position);
-            GameEntry.Utils.buildingPos.Add(new Vector2(1, 2), this.transform.GetChild(6).transform.position);
-            GameEntry.Utils.buildingPos.Add(new Vector2(1, 3), this.transform.GetChild(7).transform.position);
-            GameEntry.Utils.buildingPos.Add(new Vector2(2, 0), this.transform.GetChild(8).transform.position);
-            GameEntry.Utils.buildingPos.Add(new Vector2(2, 1), this.transform.GetChild(9).transform.position);
-            GameEntry.Utils.buildingPos.Add(new Vector2(2, 2), this.transform.GetChild(10).transform.position);
-            GameEntry.Utils.buildingPos.Add(new Vector2(2, 3), this.transform.GetChild(11).transform.position);
-
-            foreach (KeyValuePair<Vector2, Vector3> pos in GameEntry.Utils.buildingPos)
+            for (int i = 0; i < this.transform.childCount; i++)
             {
-                GameEntry.Entity.ShowBuilding(new BuildingData(GameEntry.Entity.GenerateSerialId(), 10000, BuildingTag.None, new Vector2(0, 0))
+                GameEntry.Utils.buildingPos.Add(this.transform.GetChild(i).transform.position);
+                Destroy(this.transform.GetChild(i).gameObject);
+            }
+            foreach (Vector3 pos in GameEntry.Utils.buildingPos)
+            {
+                GameEntry.Entity.ShowBuilding(new BuildingData(GameEntry.Entity.GenerateSerialId(), 10000, BuildingTag.Empty, new Vector2(0, 0))
                 {
-                    Position = pos.Value
+                    Position = pos
                 });
             }
         }

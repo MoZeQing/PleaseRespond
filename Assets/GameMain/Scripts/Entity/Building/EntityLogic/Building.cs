@@ -1,3 +1,4 @@
+using GameFramework.DataTable;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,16 +7,29 @@ namespace GameMain
 {
     public class Building : Entity
     {
-        public BuildingData Data;
+        public BuildingData BuildingData;
+        public CompenentData CompenentData;
 
 
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
-            Data = (BuildingData)userData;
+            BuildingData = (BuildingData)userData;
 
             this.transform.position= Vector3.zero;
 
+            InitCompenent();
+        }
+
+        public void ChangeBuilding(BuildingTag buildingTag)
+        {
+            if (BuildingData.BuildingTag != BuildingTag.Empty)
+                this.transform.GetChild(0).GetComponent<BaseBuilding>().DowngradeBuilding();
+            GameEntry.Entity.DetachChildEntities(this.Id);
+            GameEntry.Entity.HideEntity(CompenentData.Id);
+
+            BuildingData.BuildingTag = buildingTag;
+            Debug.Log(1);
             InitCompenent();
         }
 
@@ -31,11 +45,11 @@ namespace GameMain
 
         private void InitCompenent()
         {
-            CompenentData compenentData = new CompenentData(GameEntry.Entity.GenerateSerialId(), 10001, Id, Data);
+            CompenentData compenentData = new CompenentData(GameEntry.Entity.GenerateSerialId(), 10001, Id, BuildingData);
             //工厂模式
-            switch (Data.BuildingTag)
+            switch (BuildingData.BuildingTag)
             {
-                case BuildingTag.None:
+                case BuildingTag.Empty:
                     GameEntry.Entity.ShowNone(compenentData);
                     break;
                 case BuildingTag.Training1:
@@ -46,8 +60,7 @@ namespace GameMain
                 case BuildingTag.Workbench2:
                 case BuildingTag.Workbench3:
                     break;
-                case BuildingTag.Elevator1:
-                case BuildingTag.Elevator2:
+                case BuildingTag.Elevator:
                     break;
                 case BuildingTag.Garden1:
                 case BuildingTag.Garden2:

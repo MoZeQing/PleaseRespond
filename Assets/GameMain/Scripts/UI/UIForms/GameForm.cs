@@ -56,7 +56,10 @@ namespace GameMain
             m_DormText.text = m_Dorm.ToString();
             m_GardenText.text = m_Garden.ToString();
         }
+
+        public void Adventure()
+        {
+            GameEntry.UI.OpenUIForm(UIFormId.ReadyForm, this);
+        }
     }
-
-
 }
