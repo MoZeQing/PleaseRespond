@@ -291,45 +291,104 @@ namespace XNodeEditor {
             return false;
         }
 
+        ///// <summary> Draw an editable list of dynamic ports. Port names are named as "[fieldName] [index]" </summary>
+        ///// <param name="fieldName">Supply a list for editable values</param>
+        ///// <param name="type">Value type of added dynamic ports</param>
+        ///// <param name="serializedObject">The serializedObject of the node</param>
+        ///// <param name="connectionType">Connection type of added dynamic ports</param>
+        ///// <param name="onCreation">Called on the list on creation. Use this if you want to customize the created ReorderableList</param>
+        //public static void DynamicPortList(string fieldName, Type type, SerializedObject serializedObject, XNode.NodePort.IO io, XNode.Node.ConnectionType connectionType = XNode.Node.ConnectionType.Multiple, XNode.Node.TypeConstraint typeConstraint = XNode.Node.TypeConstraint.None, Action<ReorderableList> onCreation = null) {
+        //    XNode.Node node = serializedObject.targetObject as XNode.Node;
+
+        //    var indexedPorts = node.DynamicPorts.Select(x => {
+        //        string[] split = x.fieldName.Split(' ');
+        //        if (split != null && split.Length == 2 && split[0] == fieldName) {
+        //            int i = -1;
+        //            if (int.TryParse(split[1], out i)) {
+        //                return new { index = i, port = x };
+        //            }
+        //        }
+        //        return new { index = -1, port = (XNode.NodePort) null };
+        //    }).Where(x => x.port != null);
+        //    List<XNode.NodePort> dynamicPorts = indexedPorts.OrderBy(x => x.index).Select(x => x.port).ToList();
+
+        //    node.UpdatePorts();
+            
+        //    ReorderableList list = null;
+        //    Dictionary<string, ReorderableList> rlc;
+        //    if (reorderableListCache.TryGetValue(serializedObject.targetObject, out rlc)) {
+        //        if (!rlc.TryGetValue(fieldName, out list)) list = null;
+        //    }
+        //    // If a ReorderableList isn't cached for this array, do so.
+        //    if (list == null) {
+        //        SerializedProperty arrayData = serializedObject.FindProperty(fieldName);
+        //        list = CreateReorderableList(fieldName, dynamicPorts, arrayData, type, serializedObject, io, connectionType, typeConstraint, onCreation);
+        //        if (reorderableListCache.TryGetValue(serializedObject.targetObject, out rlc)) rlc.Add(fieldName, list);
+        //        else reorderableListCache.Add(serializedObject.targetObject, new Dictionary<string, ReorderableList>() { { fieldName, list } });
+        //    }
+        //    list.list = dynamicPorts;
+        //    list.DoLayoutList();
+            
+        //}
+
         /// <summary> Draw an editable list of dynamic ports. Port names are named as "[fieldName] [index]" </summary>
         /// <param name="fieldName">Supply a list for editable values</param>
         /// <param name="type">Value type of added dynamic ports</param>
         /// <param name="serializedObject">The serializedObject of the node</param>
         /// <param name="connectionType">Connection type of added dynamic ports</param>
         /// <param name="onCreation">Called on the list on creation. Use this if you want to customize the created ReorderableList</param>
-        public static void DynamicPortList(string fieldName, Type type, SerializedObject serializedObject, XNode.NodePort.IO io, XNode.Node.ConnectionType connectionType = XNode.Node.ConnectionType.Multiple, XNode.Node.TypeConstraint typeConstraint = XNode.Node.TypeConstraint.None, Action<ReorderableList> onCreation = null) {
+        public static void DynamicPortList(string fieldName, Type type, SerializedObject serializedObject, XNode.NodePort.IO io, XNode.Node.ConnectionType connectionType = XNode.Node.ConnectionType.Multiple, XNode.Node.TypeConstraint typeConstraint = XNode.Node.TypeConstraint.None, Action<ReorderableList> onCreation = null, bool forceReset = false)
+        {
             XNode.Node node = serializedObject.targetObject as XNode.Node;
 
             var indexedPorts = node.DynamicPorts.Select(x => {
                 string[] split = x.fieldName.Split(' ');
-                if (split != null && split.Length == 2 && split[0] == fieldName) {
+                if (split != null && split.Length == 2 && split[0] == fieldName)
+                {
                     int i = -1;
-                    if (int.TryParse(split[1], out i)) {
+                    if (int.TryParse(split[1], out i))
+                    {
                         return new { index = i, port = x };
                     }
                 }
-                return new { index = -1, port = (XNode.NodePort) null };
-            }).Where(x => x.port != null);
+                return new { index = -1, port = (XNode.NodePort)null };
+            }).Where(x => x.port != null);//序列化所有内容，并转为字符串模式，以string[]输出，其中string[0]表示key，string[1]表示value
             List<XNode.NodePort> dynamicPorts = indexedPorts.OrderBy(x => x.index).Select(x => x.port).ToList();
-
+            //
             node.UpdatePorts();
-            
+
+
+            //在这里发现DynamPortList本身会将List缓存到rlc字典里，并且之后每次刷新，不会对list进行更改
             ReorderableList list = null;
             Dictionary<string, ReorderableList> rlc;
-            if (reorderableListCache.TryGetValue(serializedObject.targetObject, out rlc)) {
+            if (reorderableListCache.TryGetValue(serializedObject.targetObject, out rlc))
+            {
                 if (!rlc.TryGetValue(fieldName, out list)) list = null;
             }
+
+            //重写判定，强制对其进行更改
             // If a ReorderableList isn't cached for this array, do so.
-            if (list == null) {
+            if (list == null || forceReset)
+            {
                 SerializedProperty arrayData = serializedObject.FindProperty(fieldName);
                 list = CreateReorderableList(fieldName, dynamicPorts, arrayData, type, serializedObject, io, connectionType, typeConstraint, onCreation);
-                if (reorderableListCache.TryGetValue(serializedObject.targetObject, out rlc)) rlc.Add(fieldName, list);
-                else reorderableListCache.Add(serializedObject.targetObject, new Dictionary<string, ReorderableList>() { { fieldName, list } });
+                if (!reorderableListCache.ContainsKey(serializedObject.targetObject))
+                {
+                    reorderableListCache.Add(serializedObject.targetObject, new Dictionary<string, ReorderableList>() { { fieldName, list } });
+                }
+                else
+                {
+                    //对list进行替换
+                    rlc[fieldName] = list;
+                }
+                //if (reorderableListCache.TryGetValue(serializedObject.targetObject, out rlc)) rlc.Add(fieldName, list);
+                //else reorderableListCache.Add(serializedObject.targetObject, new Dictionary<string, ReorderableList>() { { fieldName, list } });
             }
             list.list = dynamicPorts;
             list.DoLayoutList();
-            
+
         }
+
 
         private static ReorderableList CreateReorderableList(string fieldName, List<XNode.NodePort> dynamicPorts, SerializedProperty arrayData, Type type, SerializedObject serializedObject, XNode.NodePort.IO io, XNode.Node.ConnectionType connectionType, XNode.Node.TypeConstraint typeConstraint, Action<ReorderableList> onCreation) {
             bool hasArrayData = arrayData != null && arrayData.isArray;

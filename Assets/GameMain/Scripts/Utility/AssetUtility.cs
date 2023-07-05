@@ -53,5 +53,10 @@ namespace GameMain
         {
             return Utility.Text.Format("Assets/GameMain/UI/UISounds/{0}.wav", assetName);
         }
+
+        public static string GetDialogDataAsset(string assetName)
+        {
+            return Utility.Text.Format("Assets/GameMain/DialogData/{0}.asset", assetName);
+        }
     }
 }
